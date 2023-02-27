@@ -5,10 +5,7 @@ import fr.elvis.spring.AppWebPersonne.repository.Personnesrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonnesService {
@@ -18,7 +15,9 @@ public class PersonnesService {
     // pour recuperer l'ensemble des personnes
     public List<Personnes> getPersonnes(){
         List<Personnes> personnes = new ArrayList<>();
-        personnesrepository.findAll().forEach(personnes::add);
+        List<Personnes> listeTrier = new ArrayList<>();
+        listeTrier.sort((Comparator<? super Personnes>) personnes);
+        personnesrepository.findAll().forEach(listeTrier::add);
         return personnes;
     }
 

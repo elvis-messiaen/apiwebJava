@@ -12,6 +12,9 @@ public class Personnes implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    /**
+     * id generer
+     */
     private long id;
     private String nom;
     private String prenom;
