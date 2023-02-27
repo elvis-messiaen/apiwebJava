@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,25 +15,38 @@ public class PersonnesService {
     @Autowired
     private Personnesrepository personnesrepository;
 
-
+    // pour recuperer l'ensemble des personnes
     public List<Personnes> getPersonnes(){
         List<Personnes> personnes = new ArrayList<>();
         personnesrepository.findAll().forEach(personnes::add);
         return personnes;
     }
 
+    // pour recuperer une personne par son ID
     public Optional<Personnes> getPersonne(long id) {
         return personnesrepository.findById(id);
     }
 
+    // supprimer une personne
     public void deletePersonnne(long id) {
         personnesrepository.deleteById(id);
     }
 
+    //attention seule les personnes de moins de 150 ans peuvent être enregistrées sinon renvoyer une erreur
+    // ajouter une personne
     public void addpersonne(Personnes personnes) {
-        personnesrepository.save(personnes);
+        Calendar dateDuJour = Calendar.getInstance();
+        int annee = dateDuJour.get(Calendar.YEAR);
+        if (annee <150){
+            personnesrepository.save(personnes);
+        }
+        else{
+            System.out.println("L'age doirt être inférieur à 150 ans");
+        }
+
     }
 
+    // mise à jour d'une personne
     public void updatePersonne(Personnes personnes,long id) {
         personnesrepository.save(personnes);
     }
